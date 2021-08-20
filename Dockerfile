@@ -1,10 +1,10 @@
 ######
-FROM ubuntu:16.04
-MAINTAINER sppsorrg@gmail.com
-
+FROM ubuntu:20.04
 
 RUN 	echo  'mysql-server mysql-server/root_password password lxr' | debconf-set-selections && \
 	echo  'mysql-server mysql-server/root_password_again password lxr' | debconf-set-selections
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
 	apt-get install -y perl &&\
@@ -18,6 +18,7 @@ RUN apt-get update && \
 	apt-get install -y make &&\
 	apt-get install -y flex &&\
 	apt-get install -y expect &&\
+	apt-get install -y tzdata &&\
 	cpan DBI &&\
 	cpan File::MMagic &&\
 	cpan DBD::mysql 
@@ -31,9 +32,9 @@ make install
 
 WORKDIR /
 RUN apt-get install -y curl &&\
-	curl -L https://sourceforge.net/projects/lxr/files/stable/lxr-2.2.1.tgz > lxr.tgz &&\
+	curl -L https://sourceforge.net/projects/lxr/files/stable/lxr-2.3.6.tgz > lxr.tgz &&\
 	tar -xvf lxr.tgz &&\
-	mv lxr-2.2.1 lxr
+	mv lxr-2.3.6 lxr
 
 WORKDIR /lxr
 ADD custom.d /lxr/custom.d
