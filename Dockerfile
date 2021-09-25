@@ -1,5 +1,5 @@
 ######
-FROM ubuntu:20.04
+FROM ubuntu:18.04
 
 RUN 	echo  'mysql-server mysql-server/root_password password lxr' | debconf-set-selections && \
 	echo  'mysql-server mysql-server/root_password_again password lxr' | debconf-set-selections
